@@ -1,15 +1,10 @@
-import dotenv from "dotenv";
-dotenv.config();
-
-import { faker } from "@faker-js/faker";
-import express from "express";
-import methodOverride from "method-override";
-import mysql from "mysql2/promise";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// index.js
+require("dotenv").config();
+const { faker } = require("@faker-js/faker");
+const express = require("express");
+const methodOverride = require("method-override");
+const mysql = require("mysql2/promise");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,16 +16,17 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 
-// MySQL 
+// MySQL pool
 const pool = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  port: Number(process.env.DB_PORT) || 3306,
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "learn_app",
+  host: process.env.DB_HOST,
+  port: Number(process.env.DB_PORT),
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  ssl: { rejectUnauthorized: false },
 });
 
 // Home Route
@@ -91,7 +87,7 @@ app.patch("/users/:id", async (req, res) => {
   }
 });
 
-// get random data (faker)
+// Generate random user (for testing)
 const getRandomUser = () => ({
   id: faker.string.uuid(),
   username: faker.internet.userName(),
