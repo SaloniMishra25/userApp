@@ -1,0 +1,22 @@
+<%- include("include/header", { title: "Edit User" }) %>
+
+<div class="center-card">
+  <h2>Edit User</h2>
+
+  <form method="POST" action="/users/<%= user.id %>?_method=PATCH" class="edit-form">
+    <label>Username:</label>
+    <input type="text" name="username" value="<%= user.username %>" required />
+
+    <label>Password:</label>
+    <input type="password" name="password" placeholder="Enter current password" required />
+
+    <button class="btn">Update</button>
+  </form>
+
+  <div class="card-buttons">
+    <a href="/users" class="btn btn-secondary">Back to Users</a>
+    <a href="/" class="btn btn-secondary">Back Home</a>
+  </div>
+</div>
+
+<%- include("include/footer") %>

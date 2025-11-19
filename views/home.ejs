@@ -1,0 +1,13 @@
+<%- include("include/header", { title: "Home" }) %>
+
+<div class="center-card">
+    <h1>Welcome to Users App</h1>
+    <p>Total Users: <strong><%= count %></strong></p>
+
+    <div class="card-buttons">
+        <a href="/users" class="btn">View Users</a>
+        <a href="/join" class="btn btn-secondary">Join Us Today</a>
+    </div>
+</div>
+
+<%- include("include/footer") %>
